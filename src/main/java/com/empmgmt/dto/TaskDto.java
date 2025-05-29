@@ -6,10 +6,6 @@ import java.util.UUID;
 import com.empmgmt.enums.TaskPriority;
 import com.empmgmt.enums.TaskStatus;
 
-import jakarta.persistence.Column; // This import is not actually needed in DTO
-import jakarta.persistence.EnumType; // This import is not actually needed in DTO
-import jakarta.persistence.Enumerated; // This import is not actually needed in DTO
-
 public class TaskDto {
 
     private String taskName;
@@ -17,9 +13,8 @@ public class TaskDto {
     private Date dueDate;
     private TaskPriority taskPriority;
     private TaskStatus taskStatus;
-    private UUID assignedTo; // Changed from assignedTO to assignedTo
+    private UUID assignedTo;
 
-    // Constructors (optional, but good practice)
     public TaskDto() {
     }
 
@@ -115,7 +110,7 @@ public class TaskDto {
     /**
      * @return the assignedTo
      */
-    public UUID getAssignedTo() { // Changed from getAssignedTO() to getAssignedTo()
+    public UUID getAssignedTo() {
         return assignedTo;
     }
 
@@ -123,7 +118,7 @@ public class TaskDto {
     /**
      * @param assignedTo the assignedTo to set
      */
-    public void setAssignedTo(UUID assignedTo) { // Changed from setAssignedTO() to setAssignedTo()
+    public void setAssignedTo(UUID assignedTo) {
         this.assignedTo = assignedTo;
     }
 }

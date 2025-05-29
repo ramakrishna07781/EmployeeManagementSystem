@@ -146,8 +146,4 @@ public class Task {
 		this.assignedTo = assignedTo;
 	}
 
-	/**
-	 * @return the assignedTo
-	 */	
-
 }
