@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.empmgmt.dto.TaskResponseDto;
 import com.empmgmt.model.Employee;
 import com.empmgmt.service.EmployeeService;
+import com.empmgmt.service.ManagerService;
 
 @RestController
 @RequestMapping("/employee")
@@ -25,6 +28,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+    
+    @Autowired
+    private ManagerService managerService;
 
     @PostMapping("/createEmp")
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
@@ -69,6 +75,21 @@ public class EmployeeController {
     public ResponseEntity<List<Employee>> getUnassignedEmployees() {
         List<Employee> unassignedEmployees = employeeService.getUnassignedEmployees();
         return new ResponseEntity<>(unassignedEmployees, HttpStatus.OK);
+    }
+    
+    @GetMapping("/GetTaskDetails/{taskId}")
+    public ResponseEntity<TaskResponseDto> getTaskDetails(@PathVariable UUID taskId) {
+        try {
+            TaskResponseDto taskDto = managerService.getTaskDetailsById(taskId);
+            if (taskDto != null) {
+                return new ResponseEntity<>(taskDto, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     
 }
