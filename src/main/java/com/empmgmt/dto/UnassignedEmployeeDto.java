@@ -16,27 +16,47 @@ public class UnassignedEmployeeDto {
         this.emailId = emailId;
     }
 
-    public UUID getEmpId() {
-        return empId;
-    }
+	/**
+	 * @return the empId
+	 */
+	public UUID getEmpId() {
+		return empId;
+	}
 
-    public void setEmpId(UUID empId) {
-        this.empId = empId;
-    }
+	/**
+	 * @param empId the empId to set
+	 */
+	public void setEmpId(UUID empId) {
+		this.empId = empId;
+	}
 
-    public String getName() {
-        return name;
-    }
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getEmailId() {
-        return emailId;
-    }
+	/**
+	 * @return the emailId
+	 */
+	public String getEmailId() {
+		return emailId;
+	}
 
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
-    }
+	/**
+	 * @param emailId the emailId to set
+	 */
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+
+    
 }
