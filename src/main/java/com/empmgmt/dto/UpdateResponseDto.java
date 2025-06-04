@@ -1,11 +1,11 @@
 package com.empmgmt.dto;
 
-import com.empmgmt.enums.TaskPriority;
-import com.empmgmt.enums.TaskStatus;
-import java.util.Date;
 import java.util.UUID;
+import java.util.Date;
+import com.empmgmt.enums.TaskStatus;
+import com.empmgmt.enums.TaskPriority;
 
-public class TaskResponseDto {
+public class UpdateResponseDto {
 
     private UUID taskId;
     private String taskName;
@@ -13,20 +13,14 @@ public class TaskResponseDto {
     private Date dueDate;
     private TaskPriority taskPriority;
     private TaskStatus taskStatus;
-    private UUID assignedTo;
 
-    public TaskResponseDto() {
-    }
-
-    public TaskResponseDto(UUID taskId, String taskName, String taskDescription, Date dueDate,
-                           TaskPriority taskPriority, TaskStatus taskStatus, UUID assignedTo) {
+    public UpdateResponseDto(UUID taskId, String taskName, String taskDescription, Date dueDate, TaskPriority taskPriority, TaskStatus taskStatus) {
         this.taskId = taskId;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.dueDate = dueDate;
         this.taskPriority = taskPriority;
         this.taskStatus = taskStatus;
-        this.assignedTo = assignedTo;
     }
 
 	/**
@@ -112,20 +106,6 @@ public class TaskResponseDto {
 	public void setTaskStatus(TaskStatus taskStatus) {
 		this.taskStatus = taskStatus;
 	}
-
-	/**
-	 * @return the assignedTo
-	 */
-	public UUID getAssignedTo() {
-		return assignedTo;
-	}
-
-	/**
-	 * @param assignedTo the assignedTo to set
-	 */
-	public void setAssignedTo(UUID assignedTo) {
-		this.assignedTo = assignedTo;
-	}
-
-   
+    
+    
 }

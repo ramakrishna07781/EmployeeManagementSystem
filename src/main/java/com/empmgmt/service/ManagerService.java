@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.empmgmt.dao.TaskRepository;
 import com.empmgmt.dao.UserRepository;
+import com.empmgmt.dto.TaskRequestResponseDto;
+import com.empmgmt.dto.UnassignedEmployeeDto;
 import com.empmgmt.enums.UserRole;
 import com.empmgmt.model.Task;
 import com.empmgmt.model.Users;
@@ -21,17 +23,30 @@ public class ManagerService {
     private UserRepository userRepository;
 
     @Transactional
-    public void createTask(Task task) {
-        task.setTaskId(UUID.randomUUID()); 
+    public Task createTask(Task task) {
+        task.setTaskId(UUID.randomUUID());
         taskRepository.save(task);
+        return task;
     }
 
-    public List<Users> getUnassignedEmployees() {
-        return userRepository.findUnassignedEmployees(UserRole.EMPLOYEE);
+//    public List<Users> getUnassignedEmployees() {
+//        return userRepository.findUnassignedEmployees(UserRole.EMPLOYEE);
+//    }
+    public List<UnassignedEmployeeDto> getUnassignedEmployees() {
+        List<Users> unassignedEmployees = userRepository.findUnassignedEmployees(UserRole.EMPLOYEE);
+
+        return unassignedEmployees.stream().map(user -> 
+            new UnassignedEmployeeDto(
+                user.getEmpId(),
+                user.getName(),
+                user.getEmailId()
+            )
+        ).toList();
     }
+
 
     @Transactional
-    public void assignTaskToEmployee(UUID taskId, UUID empId) {
+    public TaskRequestResponseDto assignTaskToEmployee(UUID taskId, UUID empId) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
         Users employee = userRepository.findById(empId)
@@ -43,5 +58,22 @@ public class ManagerService {
 
         task.setAssignedEmployee(employee);
         taskRepository.save(task);
+
+        return new TaskRequestResponseDto(
+            task.getTaskId(), task.getTaskName(), task.getTaskDescription(),
+            task.getDueDate(), task.getTaskPriority(), task.getTaskStatus(), empId
+        );
     }
+
+//    public TaskRequestResponseDto getTaskById(UUID taskId) {
+//        Task task = taskRepository.findById(taskId)
+//                .orElseThrow(() -> new RuntimeException("Task not found"));
+//
+//        return new TaskRequestResponseDto(
+//            task.getTaskId(), task.getTaskName(), task.getTaskDescription(),
+//            task.getDueDate(), task.getTaskPriority(), task.getTaskStatus(),
+//            task.getAssignedEmployee() != null ? task.getAssignedEmployee().getEmpId() : null
+//        );
+//    }
+
 }

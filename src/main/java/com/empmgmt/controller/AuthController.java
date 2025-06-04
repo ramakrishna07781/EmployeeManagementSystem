@@ -31,15 +31,15 @@ public class AuthController {
         return ResponseEntity.ok("User registered successfully!");
     }
 
-    @GetMapping("/users/all")
-    public ResponseEntity<List<Users>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
-    }
-
-    @GetMapping("/users/unassigned")
-    public ResponseEntity<List<Users>> getUnassignedEmployees() {
-        return ResponseEntity.ok(userService.getUnassignedEmployees());
-    }
+//    @GetMapping("/users/all")
+//    public ResponseEntity<List<Users>> getAllUsers() {
+//        return ResponseEntity.ok(userService.getAllUsers());
+//    }
+//
+//    @GetMapping("/users/unassigned")
+//    public ResponseEntity<List<Users>> getUnassignedEmployees() {
+//        return ResponseEntity.ok(userService.getUnassignedEmployees());
+//    }
     
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Users user) {
