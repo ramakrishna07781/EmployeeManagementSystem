@@ -2,51 +2,44 @@ package com.empmgmt.model;
 
 import java.util.Date;
 import java.util.UUID;
-
 import com.empmgmt.enums.TaskPriority;
 import com.empmgmt.enums.TaskStatus;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="Task")
+@Table(name = "Task")
 public class Task {
 
-	@Id
-	private UUID taskId;
-	
-	@Column(nullable=false)
-	private String taskName;
-	
-	@Column(nullable=false)
-	private String taskDescription;
-	
-	@Column(nullable=false)
-	private Date dueDate;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(nullable=false)
-	private TaskPriority taskPriority;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(nullable=false)
-	private TaskStatus taskStatus;
-	
-	@Column(nullable=true)
-	private UUID assignedTo;
+    @Id
+    private UUID taskId;
 
-	@PrePersist
-	public void generateId() {
-		if (this.taskId == null) {
-			this.taskId = UUID.randomUUID();
-		}
-	}
+    @Column(nullable = false)
+    private String taskName;
+
+    @Column(nullable = false)
+    private String taskDescription;
+
+    @Column(nullable = false)
+    private Date dueDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TaskPriority taskPriority;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TaskStatus taskStatus = TaskStatus.AWAITED;
+
+    @ManyToOne
+    @JoinColumn(name = "emp_id", nullable = true)  
+    private Users assignedEmployee;
+
+    @PrePersist
+    public void generateId() {
+        if (this.taskId == null) {
+            this.taskId = UUID.randomUUID();
+        }
+    }
 
 	/**
 	 * @return the taskId
@@ -133,17 +126,18 @@ public class Task {
 	}
 
 	/**
-	 * @return the assignedTo
+	 * @return the assignedEmployee
 	 */
-	public UUID getAssignedTo() {
-		return assignedTo;
+	public Users getAssignedEmployee() {
+		return assignedEmployee;
 	}
 
 	/**
-	 * @param assignedTo the assignedTo to set
+	 * @param assignedEmployee the assignedEmployee to set
 	 */
-	public void setAssignedTo(UUID assignedTo) {
-		this.assignedTo = assignedTo;
+	public void setAssignedEmployee(Users assignedEmployee) {
+		this.assignedEmployee = assignedEmployee;
 	}
 
+    
 }

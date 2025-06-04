@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.empmgmt.model.Task;
 
 @Repository
-public interface ManagerDao extends JpaRepository<Task, UUID>{
+public interface TaskRepository extends JpaRepository<Task, UUID>{
 	
 }
